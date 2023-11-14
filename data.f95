@@ -1,25 +1,33 @@
 program rainfall
 implicit none
+integer:: Nmax
 
-integer:: i, Nmax, st
+write(*,*) 'poses poleis thes?'
+read*, Nmax
 
-character(15):: town(50)
-integer:: rain(50)
+call File_Reading(Nmax)
 
-Nmax=0
-i=0
+
+contains
+
+Subroutine File_Reading(Nmax)
+
+integer, intent(in)::Nmax
+integer ::R(Nmax)
+character(15):: T(Nmax)
+integer:: i,j
+
 open(10,File='C:\Users\pkalo\Documents\rainfall\data.txt')
  read(10,*)
-  do
-   i=i+1
-   read(10,*,iostat=st) town(i), rain(i)
-   if (st==-1) exit
-   Nmax=Nmax+1  
+  do i=1,Nmax
+   read(10,*) T(i), R(i)
   end do
 close(10)
 
-do i=1,Nmax
-    write(*,*) town(i), rain(i)
+do j=1,Nmax
+    write(*,*) T(j), R(j)
 end do
 
-end program  
+end subroutine
+
+end program 
